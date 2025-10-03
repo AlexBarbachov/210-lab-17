@@ -45,13 +45,9 @@ int main() {
     output(head);
 
     // insert a node
-    current = head;
+
     cout << "After which node to insert 10000? " << endl;
-    count = 1;
-    while (current) {
-        cout << "[" << count++ << "] " << current->value << endl;
-        current = current->next;
-    }
+    output(head);
     cout << "Choice --> ";
     cin >> entry;
 
@@ -59,6 +55,12 @@ int main() {
 
     output(head);
 
+
+    insertT(head, 500);
+    cout << "After adding 500 to tail" << endl;
+    output(head);
+
+    
     // deleting the linked list
     deleteList(head);
 
