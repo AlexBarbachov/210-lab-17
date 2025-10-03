@@ -12,6 +12,8 @@ struct Node {
 // func protos
 void insertF(Node* head, float val);
 void insertT(Node* head, float val);
+void deleteNode(Node* head, int pos);
+void deleteList(Node* head);
 
 
 void output(Node *);
@@ -166,8 +168,23 @@ void deleteNode (Node*& head, int pos)
     if (!current)
         return;
 
-    previous->next = current->next;
+    previous->next = current->next; // bypass the node so you can delete it 
+    delete current; // free mem
 }
+
+void deleteList(Node*& head)
+{
+    Node *current = head;
+    while (current)
+    {
+        Node *temp = current; // this keeps track of node i think
+        current = current -> next; // traverse
+        delete temp; // free mem
+    }
+    head = nullptr; // this makes list empty 
+}
+
+// insert node at specified position
 
 void output(Node * hd) {
     if (!hd) {
