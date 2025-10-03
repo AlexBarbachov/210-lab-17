@@ -8,6 +8,12 @@ struct Node {
     Node *next;
 };
 
+
+// func protos
+void insertF(Node* head, float val);
+void insertT(Node* head, float val);
+
+
 void output(Node *);
 
 int main() {
@@ -127,8 +133,40 @@ void inserT(Node* head, float val)
     {
         current = current->next; // moves forward
     }
-    
 
+    current->next = newNode;
+}
+
+// delete any node at some position
+void deleteNode (Node*& head, int pos)
+{
+    // check valid pos
+    if (!head || pos < 1)
+        return;
+
+    
+    
+    Node* current = head;
+    if (pos == 1)
+    {
+        head = head->next;
+        delete current; // free up mem
+        return;
+    }
+
+    Node *previous = nullptr;
+
+    for (int i = 1; current && i < pos; i++)
+    {
+        previous = current;
+        current = current->next; // traverse node
+
+    }
+
+    if (!current)
+        return;
+
+    previous->next = current->next;
 }
 
 void output(Node * hd) {
