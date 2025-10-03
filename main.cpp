@@ -10,12 +10,11 @@ struct Node {
 
 
 // func protos
-void insertF(Node* head, float val);
-void insertT(Node* head, float val);
-void deleteNode(Node* head, int pos);
-void deleteList(Node* head);
-
-
+void insertF(Node*& head, float val);
+void insertT(Node*& head, float val);
+void deleteNode(Node*& head, int pos);
+void deleteList(Node*& head);
+void insertN(Node*& head, float val, int pos);
 void output(Node *);
 
 int main() {
@@ -23,22 +22,14 @@ int main() {
     int count = 0;
 
     // create a linked list of size SIZE with random numbers 0-99
-    for (int i = 0; i < SIZE; i++) {
+    for (int i =0; i < SIZE; i++)
+    {
         int tmp_val = rand() % 100;
-        Node *newVal = new Node;
-        
-        // adds node at head
-        if (!head) { // if this is the first node, it's the new head
-            head = newVal;
-            newVal->next = nullptr;
-            newVal->value = tmp_val;
-        }
-        else { // its a second or subsequent node; place at the head
-            newVal->next = head;
-            newVal->value = tmp_val;
-            head = newVal;
-        }
+        insertF(head, tmp_val);
     }
+
+
+
     output(head);
 
     // deleting a node
@@ -50,21 +41,7 @@ int main() {
     cin >> entry;
 
     // traverse that many times and delete that node
-    current = head;
-    Node *prev = head;
-    for (int i = 0; i < (entry-1); i++)
-        if (i == 0)
-            current = current->next;
-        else {
-            current = current->next;
-            prev = prev->next;
-        }
-    // at this point, delete current and reroute pointers
-    if (current) {  // checks for current to be valid before deleting the node
-        prev->next = current->next;
-        delete current;
-        current = nullptr;
-    }
+    deleteNode(head, entry);
     output(head);
 
     // insert a node
@@ -78,37 +55,20 @@ int main() {
     cout << "Choice --> ";
     cin >> entry;
 
-    current = head;
-    prev = head;
-    for (int i = 0; i < (entry); i++)
-        if (i == 0)
-            current = current->next;
-        else {
-            current = current->next;
-            prev = prev->next;
-        }
-    //at this point, insert a node between prev and current
-    Node * newnode = new Node;
-    newnode->value = 10000;
-    newnode->next = current;
-    prev->next = newnode;
+    insertN(head, 10000, entry);
+
     output(head);
 
     // deleting the linked list
-    current = head;
-    while (current) {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;
+    deleteList(head);
+
     output(head);
 
     return 0;
 }
 
 // new head node
-void insertF(Node* head, float val)
+void insertF(Node*& head, float val)
 {
     Node *newNode = new Node; // allocate memory
     newNode->value = val;
@@ -117,10 +77,10 @@ void insertF(Node* head, float val)
 }
 
 // adds tail node
-void inserT(Node* head, float val)
+void insertT(Node*& head, float val)
 {
     Node *newNode = new Node;
-    newNode->value;
+    newNode->value = val;
     newNode->next = nullptr; // tail is now null
 
     // check if empty linked list
@@ -185,6 +145,27 @@ void deleteList(Node*& head)
 }
 
 // insert node at specified position
+void insertN(Node*& head, float val, int pos)
+{
+    // check valid pos
+    if (!head || pos < 1)
+        return;
+    
+    Node* current = head;
+    for (int i = 1; current && i < pos; i++)
+    {
+        current = current->next; // traverse
+    }
+
+    if (!current) 
+        return;
+    
+    Node *newNode = new Node;
+    newNode->value = val;
+    newNode->next = current->next;
+    current->next = newNode;
+}
+
 
 void output(Node * hd) {
     if (!hd) {
