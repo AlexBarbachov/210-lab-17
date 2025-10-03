@@ -99,6 +99,38 @@ int main() {
     return 0;
 }
 
+// new head node
+void insertF(Node* head, float val)
+{
+    Node *newNode = new Node; // allocate memory
+    newNode->value = val;
+    newNode->next = head; // assign new node
+    head = newNode; // update head
+}
+
+// adds tail node
+void inserT(Node* head, float val)
+{
+    Node *newNode = new Node;
+    newNode->value;
+    newNode->next = nullptr; // tail is now null
+
+    // check if empty linked list
+    if (!head)
+    {
+        head = newNode;
+        return; // get out of method
+    }
+
+    Node *current = head;
+    while (current->next)
+    {
+        current = current->next; // moves forward
+    }
+    
+
+}
+
 void output(Node * hd) {
     if (!hd) {
         cout << "Empty list.\n";
